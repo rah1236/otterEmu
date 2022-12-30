@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 id="time">Time</h1>
+    <h2 id="programCount"></h2>
+    <textarea id="instructions"></textarea>
+    <button onclick="loadMem()">Load</button>
+    <button onclick="reset()">Reset</button>
+    <button onclick="step()">Step</button>
+    <button onclick="run()">Run</button>
+    <button onclick="test()">Test</button>
+    
+
+
+
+
+    <script src="otteremu.js"></script>
+    <script>
+
+
+
+        function logTest() {
+            console.log("test");
+        }
+
+        function loadMem(){
+            const textarea = document.querySelector('textarea');
+            // Get the text content of the textarea
+            const textareaText = textarea.value;
+             // Split the text into an array of lines
+            const lines = textareaText.split('\n');
+            //load lines into memory
+            emu.loadProgram(lines)
+        }
+
+
+        function reset(){
+            emu.reset()
+            console.clear()
+        }
+
+        function step(){
+            emu.step()
+        }
+
+        function run(){
+            console.log("ran")
+            emu.run()
+        }
+
+        function test(){
+            emu.test()
+        }
+
+        function refreshRegisterDisplay(){
+            for (let i = 0; i < emu.registers.length; i++){
+               // console.log(i)
+                document.getElementById(i).innerHTML = "x" + i + " : " + emu.registers[i].toString(16);
+            }
+        }
+
+        function refreshPCDisplay(){
+            document.getElementById("programCount").innerHTML = "PC = " + emu.getPC()
+        }
+
+        function refreshTimeDisplay(){
+             // get the current time
+            var date = new Date();
+            // update the content of the time element
+            document.getElementById("time").innerHTML = date.toLocaleTimeString();
+        }
+
+        const emu = new RiscVEmulator();
+        
+        document.getElementById("programCount").innerHTML = "PC = " + emu.getPC()
+        emu.loadProgram(["deadc0b7","eef08093"])
+        emu.run()
+
+        // create the table element
+        var registerTable = document.createElement("table");
+        registerTable.id = 'registerTable'
+        // create rows
+        let rCount = [[0,8,16,24],
+                      [1,9,17,25],
+                      [2,10,18,26],
+                      [3,11,19,27],
+                      [4,12,20,28],
+                      [5,13,21,29],
+                      [6,14,22,30],
+                      [7,15,23,31]]
+        for (var i = 0; i < 8; i++) {
+            var row = document.createElement("tr");
+
+            // create cells
+            for (var j = 0; j < 4; j++) {
+                var cell = document.createElement("td");
+                // add content to the cell
+
+                cell.innerHTML = "x" + (rCount[i][j]) + " : " + emu.getReg(rCount[i][j]).toString(16);
+                // append the cell to the row
+                row.appendChild(cell);
+                cell.id = rCount[i][j]
+
+            }
+
+            // append the row to the table
+            registerTable.appendChild(row);
+        }
+
+        // append the table to the DOM
+        document.body.appendChild(registerTable);
+
+        // update the time every second
+        setInterval(function() {
+          refreshPCDisplay()
+          refreshRegisterDisplay()
+          refreshTimeDisplay()
+        }, 125);
+
+
+    </script>
+</body>
+</html>
