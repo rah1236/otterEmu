@@ -31,4 +31,4 @@ To write and compile assembly, [Venus](https://venus.kvakil.me) is an excellent 
 
 ## Special Thanks
 
-Thanks to Grace, Miles, and Noah for getting me through 233, Dash, Professor Callenes-Sloan, and probably most of all Professor Mealy for putting together and awesome class, and set of textbooks, and for ultimately giving me a C+ in the course. This Emulator is deserving of about that grade too.
+Thanks to Grace, Miles, and Noah for getting me through 233, Dash, Professor Callenes-Sloan, and probably most of all Professor Mealy for putting together an awesome class and set of textbooks, and for ultimately giving me a C+ in the course. This Emulator is deserving of about that grade too.
