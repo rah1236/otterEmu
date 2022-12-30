@@ -121,7 +121,7 @@ class RiscVEmulator {
         let rs2 = (instruction >> 20) & 0b11111;
         let func3 = (instruction >> 12) & 0b111;
         let func7 = (instruction >> 30) & 0b1;
-        let imm = instruction >>> 20;
+        let imm = instruction >> 20;
         console.log("imm " + imm.toString(10))
         console.log("opcode " + opcode.toString(2))
         console.log("func3 = " + func3.toString(2))
